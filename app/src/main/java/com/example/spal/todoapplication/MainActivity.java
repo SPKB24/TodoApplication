@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        // OnClickListener for FloatingActionButton
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<String> list = new ArrayList<>();
         for (String value : this.values) { list.add(value); }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.values);
+        ArrayAdapter<String> adapter = new CustomAdapter(this, values);
+
         if (lv != null) {
 
             lv.setAdapter(adapter);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String value = String.valueOf(parent.getItemAtPosition(position));
+                        TextView
                         int count = poll.get(value);
 
                         // Add 1 click to the value that was clicked on
