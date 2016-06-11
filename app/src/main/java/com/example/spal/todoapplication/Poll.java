@@ -1,9 +1,7 @@
 package com.example.spal.todoapplication;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Poll {
 
@@ -44,17 +42,26 @@ public class Poll {
         return toReturn;
     }
 
-    public PollItem findWinner() {
+    public List<PollItem> findWinner() {
 
-        Map<PollItem, Integer> counter = new HashMap<>();
+        // Create list to hold winner (or winners in the case of a tie)
         List<PollItem> winners = new ArrayList<>();
 
         for (PollItem item : mItems) {
-
-
+            if (winners.isEmpty() || (winners.get(0).getNumVotes() != 0 &&
+                    winners.get(0).getNumVotes() == item.getNumVotes())) {
+                winners.add(item);
+            } else if (winners.get(0).getNumVotes() < item.getNumVotes()) {
+                winners.clear();
+                winners.add(item);
+            }
         }
 
+        // If the highest is 0, just return 0;
+        if (winners.get(0).getNumVotes() == 0) {
+            return mItems;
+        }
 
-        return new PollItem("Null");
+        return winners;
     }
 }

@@ -34,4 +34,9 @@ public class PollItem {
     public int getNumVotes() {
         return mNumVotes;
     }
+
+    @Override
+    public String toString() {
+        return this.getValue();
+    }
 }

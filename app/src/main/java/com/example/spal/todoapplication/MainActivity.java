@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,9 +75,40 @@ public class MainActivity extends AppCompatActivity {
     public void fabOnClick(Poll poll) {
 
         // Get the winner, dynamically create a message, then display a toast with information.
-        PollItem winner = poll.findWinner();
+        List<PollItem> winners = poll.findWinner();
 
-        String message = winner.getValue() + " was chosen " + winner.getNumVotes() + " times";
+        // Variable to hold the message for the toast.
+        String message = "";
+
+        if (winners.size() == poll.asArray().length) {
+            if (winners.get(0).getNumVotes() == 0) {
+                message = "You haven't clicked an item yet";
+            } else {
+                message = "All items tied with " + winners.get(0).getNumVotes();
+            }
+        } else {
+            if (winners.size() == 1) {
+                // deal with only 1 winner
+                PollItem winner = winners.get(0);
+                message = winner.getValue() + " was chosen " + winner.getNumVotes();
+                message += (winner.getNumVotes() > 1 ? " times": " time");
+            } else {
+                // deal with multiple winners
+                for (int i = 0; i < winners.size(); i++) {
+                    if (i == winners.size() - 1) {
+                        message += " and " + winners.get(i) + " were chosen " +
+                                winners.get(i).getNumVotes();
+                        message += (winners.get(0).getNumVotes() > 1 ? " times": " time");
+                    } else {
+                        message += winners.get(i);
+                        if (winners.size() != 2) {
+                            message += ", ";
+                        }
+                    }
+                }
+            }
+
+        }
 
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
