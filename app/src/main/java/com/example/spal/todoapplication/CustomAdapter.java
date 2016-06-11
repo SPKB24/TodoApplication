@@ -7,29 +7,28 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-class CustomAdapter extends ArrayAdapter<String> {
+class CustomAdapter extends ArrayAdapter< PollItem > {
 
-    CustomAdapter(Context context, String[] devices) {
-        super(context, R.layout.custom_row, devices);
+    CustomAdapter(Context context, PollItem[] poll) {
+        super(context, R.layout.custom_row, poll);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.custom_row, parent, false);
 
-        String header = getItem(position);
+        PollItem item = getItem(position);
 
         // Get TextViews for Header and Subtitle
         TextView headTextItem = (TextView) view.findViewById(R.id.textViewHeader);
         TextView subTextItem = (TextView) view.findViewById(R.id.textViewSubTitle);
 
         // Populate both TextViews
-        headTextItem.setText(header);
-        subTextItem.setText("Current Counter: 0");
+        headTextItem.setText(item.getValue());
+        subTextItem.setText("Current Counter: " + item.getNumVotes());
 
         return view;
     }
-
-
 }
