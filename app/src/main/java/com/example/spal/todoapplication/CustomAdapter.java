@@ -17,7 +17,7 @@ class CustomAdapter extends ArrayAdapter< PollItem > {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.custom_row, parent, false);
+        View view = inflater.from(getContext()).inflate(R.layout.custom_row, parent, false);
 
         PollItem item = getItem(position);
 
@@ -27,7 +27,7 @@ class CustomAdapter extends ArrayAdapter< PollItem > {
 
         // Populate both TextViews
         headTextItem.setText(item.getValue());
-        subTextItem.setText("Current Counter: " + item.getNumVotes());
+        //subTextItem.setText(5);
 
         return view;
     }

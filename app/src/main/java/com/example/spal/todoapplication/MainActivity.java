@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 // deal with multiple winners
                 for (int i = 0; i < winners.size(); i++) {
                     if (i == winners.size() - 1) {
-                        message += " and " + winners.get(i) + " were chosen " +
+                        if (winners.size() == 2) {
+                            message += " ";
+                        }
+
+                        message += "and " + winners.get(i) + " were chosen " +
                                 winners.get(i).getNumVotes();
                         message += (winners.get(0).getNumVotes() > 1 ? " times": " time");
                     } else {
@@ -107,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-
         }
 
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
